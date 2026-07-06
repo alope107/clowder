@@ -13,6 +13,12 @@
 namespace common
 {
 
+/**
+ * ash = |
+ * eth = ~
+ * thorn = }
+ */
+
 constexpr bn::utf8_character fixed_8x16_sprite_font_utf8_characters[] = {
     "Á", "É", "Í", "Ó", "Ú", "Ü", "Ñ", "á", "é", "í", "ó", "ú", "ü", "ñ", "¡", "¿"
 };
