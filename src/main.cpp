@@ -27,7 +27,7 @@
 
 int main()
 {
-    game gameSettings(60);
+    game gameSettings(120);
     beep sound(gameSettings);
 
     bn::core::init();
@@ -54,8 +54,8 @@ int main()
 
     marquee m = marquee(text_generator,
                         text,
-                        {200, -30},
-                        80
+                        {120, -30},
+                        gameSettings.getGameBPM()
                         );
 
     // load sprite
