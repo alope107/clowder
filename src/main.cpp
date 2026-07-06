@@ -4,16 +4,19 @@
 #include <bn_keypad.h>
 #include <bn_sprite_ptr.h>
 #include <bn_sound.h>
+#include <bn_sound_item.h>
 #include <bn_log.h>
 #include "bn_sound_items.h"
+#include <bn_vector.h>
+#include <bn_unordered_map.h>
 #include "beep.h"
 
 #include "game.h"
 
 int main()
 {
-    game gameSettings;
-    beep sound;
+    game gameSettings(60);
+    beep sound(gameSettings);
 
     bn::core::init();
 
@@ -34,8 +37,22 @@ int main()
             bn::backdrop::set_color(bn::color(0, 31, 0));
             bn::sound::play(bn::sound_items::clap_hi);
         }
+       
         int currFrame = gameSettings.getCurrentFrame();
-        sound.play(currFrame);
+        sound.beat(currFrame);
+
+        // make sound with map
+        bn::unordered_map<int, int, 4> beats;
+        beats[1] = 0;
+        beats[3] = 0;
+        //sound.play(beats);
+
+        // make sound vector
+        bn::vector<int, 4> beats_vec;
+        beats_vec.push_back(1);
+        beats_vec.push_back(3);
+        sound.play(beats_vec);
+        
 
         gameSettings.incrementFrame();
         bn::core::update();

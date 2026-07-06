@@ -5,10 +5,12 @@
 class game
 {
 public:
-    game()
+    game(int bpm)
     {
         // init frame to 0
         current_frame = 0;
+        game_bpm = bpm;
+        song_bps = game_fps / (game_bpm / 60);
     }
 
     int getCurrentFrame() { return current_frame; };
@@ -20,6 +22,11 @@ public:
         return current_frame;
     };
 
+    int getGameBPM() { return song_bps; };
+
 private:
     int current_frame;
+    int game_bpm;
+    int game_fps = 60;
+    int song_bps;
 };
