@@ -16,7 +16,7 @@ int main() {
     bn::sprite_text_generator text_generator(font);
     text_generator.set_alignment(bn::sprite_text_generator::alignment_type::CENTER);
 
-    word w = word(text_generator, "hwaet");
+    word w = word(text_generator, "hw|t");
 
     while(true) {
         if(bn::keypad::a_pressed()) {
