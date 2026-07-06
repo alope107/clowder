@@ -16,7 +16,7 @@ int main() {
     bn::sprite_text_generator text_generator(font);
     text_generator.set_alignment(bn::sprite_text_generator::alignment_type::CENTER);
 
-    word w = word(text_generator, "hw|t");
+    word w = word(text_generator, "hw|t", {30, 30});
 
     while(true) {
         if(bn::keypad::a_pressed()) {
@@ -25,6 +25,7 @@ int main() {
         if(bn::keypad::b_pressed()) {
             bn::backdrop::set_color(bn::color(0, 31, 0));
         }
+        w.update();
         bn::core::update();
     }
 }
