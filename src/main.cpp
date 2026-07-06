@@ -2,8 +2,10 @@
 #include <bn_backdrop.h>
 #include <bn_color.h>
 #include <bn_keypad.h>
+#include <bn_string.h>
 
 #include "word.h"
+#include "marquee.h"
 
 #include "common_fixed_8x16_font.h"
 
@@ -16,7 +18,30 @@ int main() {
     bn::sprite_text_generator text_generator(font);
     text_generator.set_alignment(bn::sprite_text_generator::alignment_type::CENTER);
 
-    word w = word(text_generator, "hw|t", {30, 30});
+    // int a = 5;
+
+    // bn::vector<int, MAX_MARQUEE_WORDS> huh = {
+    //     a, a
+    // };
+
+    bn::vector<bn::string<MAX_WORD_LEN>, MAX_MARQUEE_WORDS> text = {};
+
+    //Hwæt. We Gardena in geardagum,
+    //þeodcyninga, þrym gefrunon
+    text.push_back(bn::string<MAX_WORD_LEN>("Hw|t"));
+    text.push_back(bn::string<MAX_WORD_LEN>("We"));
+    text.push_back(bn::string<MAX_WORD_LEN>("Gardena"));
+    text.push_back(bn::string<MAX_WORD_LEN>("in"));
+    text.push_back(bn::string<MAX_WORD_LEN>("geardagum"));
+    text.push_back(bn::string<MAX_WORD_LEN>("}eodcyninga"));
+    text.push_back(bn::string<MAX_WORD_LEN>("}rym"));
+    text.push_back(bn::string<MAX_WORD_LEN>("gefrunon"));
+
+    marquee m = marquee(text_generator,
+                        text,
+                        {200, -30},
+                        80
+                        );
 
     while(true) {
         if(bn::keypad::a_pressed()) {
@@ -25,7 +50,7 @@ int main() {
         if(bn::keypad::b_pressed()) {
             bn::backdrop::set_color(bn::color(0, 31, 0));
         }
-        w.update();
+        m.update();
         bn::core::update();
     }
 }
