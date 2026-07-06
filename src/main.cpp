@@ -1,3 +1,8 @@
+
+#include <bn_core.h>
+#include <bn_backdrop.h>
+#include <bn_color.h>
+#include <bn_keypad.h>
 #include <bn_core.h>
 #include <bn_backdrop.h>
 #include <bn_color.h>
@@ -13,6 +18,13 @@
 
 #include "game.h"
 
+#include <bn_string.h>
+
+#include "word.h"
+#include "marquee.h"
+
+#include "common_fixed_8x16_font.h"
+
 int main()
 {
     game gameSettings(60);
@@ -21,6 +33,30 @@ int main()
     bn::core::init();
 
     bn::backdrop::set_color(bn::color(31, 0, 0));
+
+    bn::sprite_font font = common::fixed_8x16_sprite_font;
+    bn::sprite_text_generator text_generator(font);
+    text_generator.set_alignment(bn::sprite_text_generator::alignment_type::CENTER);
+
+
+    bn::vector<bn::string<MAX_WORD_LEN>, MAX_MARQUEE_WORDS> text = {};
+
+    //Hwæt. We Gardena in geardagum,
+    //þeodcyninga, þrym gefrunon
+    text.push_back(bn::string<MAX_WORD_LEN>("Hw|t"));
+    text.push_back(bn::string<MAX_WORD_LEN>("We"));
+    text.push_back(bn::string<MAX_WORD_LEN>("Gardena"));
+    text.push_back(bn::string<MAX_WORD_LEN>("in"));
+    text.push_back(bn::string<MAX_WORD_LEN>("geardagum"));
+    text.push_back(bn::string<MAX_WORD_LEN>("}eodcyninga"));
+    text.push_back(bn::string<MAX_WORD_LEN>("}rym"));
+    text.push_back(bn::string<MAX_WORD_LEN>("gefrunon"));
+
+    marquee m = marquee(text_generator,
+                        text,
+                        {200, -30},
+                        80
+                        );
 
     // load sprite
     // bn::sprite_ptr heart = bn::sprite_items::heart.create_sprite(); // by default in middle, sprite ptr is a smart pointer
@@ -55,6 +91,8 @@ int main()
         
 
         gameSettings.incrementFrame();
+        m.update();
         bn::core::update();
     }
+
 }
