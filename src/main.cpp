@@ -22,10 +22,12 @@
 
 #include <bn_string.h>
 
+#include "bard.h"
 #include "word.h"
 #include "marquee.h"
 
 #include "common_variable_8x16_sprite_font.h"
+
 
 int main()
 {
@@ -46,11 +48,13 @@ int main()
 
     bn::core::init();
 
-    bn::backdrop::set_color(bn::color(31, 0, 0));
+    bn::backdrop::set_color(bn::color(15, 27, 31));
 
     bn::sprite_font font = common::variable_8x16_sprite_font;
     bn::sprite_text_generator text_generator(font);
     text_generator.set_alignment(bn::sprite_text_generator::alignment_type::LEFT);
+
+    bard kitty_bard = bard({-120 + 32, 0});
 
     //Hwæt. We Gardena in geardagum,
     //þeodcyninga, þrym gefrunon
@@ -118,7 +122,17 @@ int main()
             if (play_beat(my_song[checkMeasure], checkBeat))
                 m.pop_word(true);            
         }
+<<<<<<< HEAD
         
+=======
+        if (bn::keypad::b_pressed())
+        {
+            bn::backdrop::set_color(bn::color(0, 31, 0));
+            bn::sound::play(bn::sound_items::clap_hi);
+        }
+
+        kitty_bard.update();
+>>>>>>> 90f39030c74cfeb47a22d65ffa2c50598a8e794f
         sound.update(); 
         m.update();
         gameSettings.incrementFrame();
