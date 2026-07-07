@@ -22,10 +22,12 @@
 
 #include <bn_string.h>
 
+#include "bard.h"
 #include "word.h"
 #include "marquee.h"
 
 #include "common_variable_8x16_sprite_font.h"
+
 
 int main()
 {
@@ -57,11 +59,13 @@ int main()
 
     bn::core::init();
 
-    bn::backdrop::set_color(bn::color(31, 0, 0));
+    bn::backdrop::set_color(bn::color(15, 27, 31));
 
     bn::sprite_font font = common::variable_8x16_sprite_font;
     bn::sprite_text_generator text_generator(font);
     text_generator.set_alignment(bn::sprite_text_generator::alignment_type::LEFT);
+
+    bard kitty_bard = bard({-120 + 32, 0});
 
     //Hwæt. We Gardena in geardagum,
     //þeodcyninga, þrym gefrunon
@@ -92,7 +96,7 @@ int main()
     marquee m = marquee(text_generator,
                         (int)(sizeof(text) / sizeof(text[0])),
                         text,
-                        {120, -30},
+                        {120, -60},
                         -100,
                         gameSettings.getFramesPerBeat(),
                         -1
@@ -112,6 +116,7 @@ int main()
             bn::sound::play(bn::sound_items::clap_hi);
         }
 
+        kitty_bard.update();
         sound.update(); 
         m.update();
         gameSettings.incrementFrame();
