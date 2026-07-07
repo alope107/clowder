@@ -12,7 +12,8 @@ static constexpr int MAX_MARQUEE_WORDS = 32;
 class marquee {
     public:
         marquee(bn::sprite_text_generator& gen, // TODO: Marquee should probably create and own the etxt generator
-                bn::vector<bn::string<MAX_WORD_LEN>, MAX_MARQUEE_WORDS> text,
+                int text_count,
+                const bn::string_view text[],
                 bn::fixed_point start_pos,
                 bn::fixed cutoff,
                 int frames_per_spawn,
@@ -22,7 +23,8 @@ class marquee {
     private:
         textarea _textarea;
         bn::sprite_text_generator& _gen;
-        bn::vector<bn::string<MAX_WORD_LEN>, MAX_MARQUEE_WORDS> _text;
+        int _text_count;
+        const bn::string_view *_text;
         bn::fixed_point _start_pos;
         int _text_idx;
         bn::deque<word, MAX_MARQUEE_WORDS> _words;

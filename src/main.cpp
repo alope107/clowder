@@ -45,36 +45,34 @@ int main()
     bn::sprite_text_generator text_generator(font);
     text_generator.set_alignment(bn::sprite_text_generator::alignment_type::LEFT);
 
-
-    bn::vector<bn::string<MAX_WORD_LEN>, MAX_MARQUEE_WORDS> text = {};
-
     //Hwæt. We Gardena in geardagum,
     //þeodcyninga, þrym gefrunon
-    text.push_back(bn::string<MAX_WORD_LEN>("Hw|t"));
-    text.push_back(bn::string<MAX_WORD_LEN>("We"));
-    text.push_back(bn::string<MAX_WORD_LEN>("Gardena"));
-    text.push_back(bn::string<MAX_WORD_LEN>("in"));
-    text.push_back(bn::string<MAX_WORD_LEN>("geardagum"));
-    text.push_back(bn::string<MAX_WORD_LEN>("}eodcyninga"));
-    text.push_back(bn::string<MAX_WORD_LEN>("}rym"));
-    text.push_back(bn::string<MAX_WORD_LEN>("gefrunon"));
-    text.push_back(bn::string<MAX_WORD_LEN>("Hw|t"));
-    text.push_back(bn::string<MAX_WORD_LEN>("We"));
-    text.push_back(bn::string<MAX_WORD_LEN>("Gardena"));
-    text.push_back(bn::string<MAX_WORD_LEN>("in"));
-    text.push_back(bn::string<MAX_WORD_LEN>("geardagum"));
-    text.push_back(bn::string<MAX_WORD_LEN>("}eodcyninga"));
-    text.push_back(bn::string<MAX_WORD_LEN>("}rym"));
-    text.push_back(bn::string<MAX_WORD_LEN>("gefrunon"));
-    text.push_back(bn::string<MAX_WORD_LEN>("Hw|t"));
-    text.push_back(bn::string<MAX_WORD_LEN>("We"));
-    text.push_back(bn::string<MAX_WORD_LEN>("Gardena"));
-    text.push_back(bn::string<MAX_WORD_LEN>("in"));
-    text.push_back(bn::string<MAX_WORD_LEN>("geardagum"));
-
-
+    constexpr bn::string_view text[] = {
+        "Hw|t",
+        "We",
+        "Gardena",
+        "in",
+        "geardagum",
+        "}eodcyninga",
+        "}rym",
+        "gefrunon",
+        "Hw|t",
+        "We",
+        "Gardena",
+        "in",
+        "geardagum",
+        "}eodcyninga",
+        "}rym",
+        "gefrunon",
+        "Hw|t",
+        "We",
+        "Gardena",
+        "in",
+        "geardagum"
+    };
 
     marquee m = marquee(text_generator,
+                        (int)(sizeof(text) / sizeof(text[0])),
                         text,
                         {120, -30},
                         -100,

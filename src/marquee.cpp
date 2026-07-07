@@ -1,13 +1,15 @@
 #include "marquee.h"
 
 marquee::marquee(bn::sprite_text_generator& gen,
-                 bn::vector<bn::string<MAX_WORD_LEN>, MAX_MARQUEE_WORDS> text,
+                 int text_count,
+                 const bn::string_view text[],
                  bn::fixed_point start_pos,
                  bn::fixed cutoff,
                  int frames_per_spawn,
                 bn::fixed text_speed) :
     _textarea(gen, {-100, 0}, 100),
     _gen(gen),
+    _text_count(text_count),
     _text(text),
     _start_pos(start_pos),
     _text_idx(0),
@@ -36,7 +38,7 @@ void marquee::update() {
 
     _frames_to_spawn = _frames_per_spawn;
 
-    if(_text_idx < _text.size()) {
+    if(_text_idx < _text_count) {
         _words.emplace_back(_gen, _text[_text_idx++], _start_pos, _text_speed);
     }
 }
