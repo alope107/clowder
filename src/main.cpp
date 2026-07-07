@@ -55,7 +55,8 @@ int main()
     marquee m = marquee(text_generator,
                         text,
                         {120, -30},
-                        gameSettings.getGameBPM()
+                        gameSettings.getGameBPM(),
+                        -1
                         );
 
     // load sprite

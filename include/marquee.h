@@ -13,7 +13,8 @@ class marquee {
         marquee(bn::sprite_text_generator& gen, // TODO: Marquee should probably create and own the etxt generator
                 bn::vector<bn::string<MAX_WORD_LEN>, MAX_MARQUEE_WORDS> text,
                 bn::fixed_point start_pos,
-                int frames_per_spawn);
+                int frames_per_spawn,
+                bn::fixed text_speed);
         void update();
     private:
         bn::sprite_text_generator& _gen;
@@ -21,6 +22,7 @@ class marquee {
         bn::fixed_point _start_pos;
         int _text_idx;
         bn::deque<word, MAX_MARQUEE_WORDS> _words;
+        bn::fixed _text_speed;
         int _frames_per_spawn;
         int _frames_to_spawn;
 };
