@@ -23,6 +23,7 @@ void textarea::clear() {
     _lines.push_back("");
     _sprs.clear();
     _line = 0;
+    _line_width = 0;
 }
 
 int string_width(bn::string_view word, [[maybe_unused]] const bn::sprite_font & font) {

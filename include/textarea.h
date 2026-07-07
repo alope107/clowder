@@ -8,7 +8,7 @@
 
 #include "limits.h"
 
-static constexpr int MAX_TEXTAREA_LINES = 2;
+static constexpr int MAX_TEXTAREA_LINES = 3;
 static constexpr int MAX_TEXTAREA_CHARS = MAX_LINE_LEN*MAX_TEXTAREA_LINES;
 static constexpr int LINE_HEIGHT = 18;
 

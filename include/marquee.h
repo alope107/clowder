@@ -6,7 +6,7 @@
 #include "limits.h"
 #include "textarea.h"
 
-static constexpr int MAX_MARQUEE_WORDS = 16;
+static constexpr int MAX_MARQUEE_WORDS = 32;
 
 
 class marquee {

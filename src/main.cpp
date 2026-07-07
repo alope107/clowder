@@ -28,7 +28,7 @@
 int main()
 {
     // set bpm
-    game gameSettings(30);
+    game gameSettings(120);
 
     // make sound vector
     bn::vector<int, 4> beats_vec;
@@ -58,6 +58,21 @@ int main()
     text.push_back(bn::string<MAX_WORD_LEN>("}eodcyninga"));
     text.push_back(bn::string<MAX_WORD_LEN>("}rym"));
     text.push_back(bn::string<MAX_WORD_LEN>("gefrunon"));
+    text.push_back(bn::string<MAX_WORD_LEN>("Hw|t"));
+    text.push_back(bn::string<MAX_WORD_LEN>("We"));
+    text.push_back(bn::string<MAX_WORD_LEN>("Gardena"));
+    text.push_back(bn::string<MAX_WORD_LEN>("in"));
+    text.push_back(bn::string<MAX_WORD_LEN>("geardagum"));
+    text.push_back(bn::string<MAX_WORD_LEN>("}eodcyninga"));
+    text.push_back(bn::string<MAX_WORD_LEN>("}rym"));
+    text.push_back(bn::string<MAX_WORD_LEN>("gefrunon"));
+    text.push_back(bn::string<MAX_WORD_LEN>("Hw|t"));
+    text.push_back(bn::string<MAX_WORD_LEN>("We"));
+    text.push_back(bn::string<MAX_WORD_LEN>("Gardena"));
+    text.push_back(bn::string<MAX_WORD_LEN>("in"));
+    text.push_back(bn::string<MAX_WORD_LEN>("geardagum"));
+
+
 
     marquee m = marquee(text_generator,
                         text,
