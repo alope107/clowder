@@ -8,18 +8,28 @@ class beep
 {
 public:
     // constructor
-    beep(game settings) {
+    beep(game *settings, bn::vector<int, 4> in_beats) {
         beat_counter = 1;
-        game_bpm = settings.getGameBPM();
+        game_settings = settings;
+        game_bpm = game_settings->getGameBPM();
+        beats = in_beats;
     }
 
-    int beat(int currFrame); // returns frame number for the frame that play happened
-    int play(bn::unordered_map<int, int, 4> beats);
-    int play(bn::vector<int, 4> beats); 
+    void update(); // call this to run the beep
 
+    int setBeats(bn::vector<int, 4> in_beats) { 
+        beats = in_beats; 
+        return 0;
+    }
 
 private:
+    game *game_settings;
     int beat_counter;
     int game_bpm;
+    bn::vector<int, 4> beats;
 
+    // helper functions
+    int beat(int currFrame); // returns frame number for the frame that play happened
+    int play(bn::unordered_map<int, int, 4> in_beats);
+    int play(bn::vector<int, 4> in_beats); 
 };

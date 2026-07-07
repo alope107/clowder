@@ -27,8 +27,15 @@
 
 int main()
 {
+    // set bpm
     game gameSettings(120);
-    beep sound(gameSettings);
+
+    // make sound vector
+    bn::vector<int, 4> beats_vec;
+    beats_vec.push_back(1);
+    beats_vec.push_back(3);
+    // init beep
+    beep sound(&gameSettings, beats_vec);
 
     bn::core::init();
 
@@ -58,8 +65,6 @@ int main()
                         gameSettings.getGameBPM()
                         );
 
-    // load sprite
-    // bn::sprite_ptr heart = bn::sprite_items::heart.create_sprite(); // by default in middle, sprite ptr is a smart pointer
 
     while (true)
     {
@@ -73,25 +78,10 @@ int main()
             bn::backdrop::set_color(bn::color(0, 31, 0));
             bn::sound::play(bn::sound_items::clap_hi);
         }
-       
-        int currFrame = gameSettings.getCurrentFrame();
-        sound.beat(currFrame);
 
-        // make sound with map
-        bn::unordered_map<int, int, 4> beats;
-        beats[1] = 0;
-        beats[3] = 0;
-        //sound.play(beats);
-
-        // make sound vector
-        bn::vector<int, 4> beats_vec;
-        beats_vec.push_back(1);
-        beats_vec.push_back(3);
-        sound.play(beats_vec);
-        
-
-        gameSettings.incrementFrame();
+        sound.update(); 
         m.update();
+        gameSettings.incrementFrame();
         bn::core::update();
     }
 
