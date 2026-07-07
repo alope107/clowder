@@ -27,16 +27,14 @@ void textarea::clear() {
 }
 
 int string_width(bn::string_view word, [[maybe_unused]] const bn::sprite_font & font) {
-    return word.size() * CHAR_WIDTH;
-    // Use this if we switch to variable width
-    // auto widths = font.character_widths_ref();
-    // BN_LOG("widths size", widths.size());
-    // constexpr char STARTING_CHAR = 32;
-    // int total_width = 0;
-    // for (const char c : word) {
-    //     total_width += widths[c - STARTING_CHAR];
-    // }
-    // return total_width;
+    auto widths = font.character_widths_ref();
+    BN_LOG("widths size", widths.size());
+    constexpr char STARTING_CHAR = 32;
+    int total_width = 0;
+    for (const char c : word) {
+        total_width += widths[c - STARTING_CHAR];
+    }
+    return total_width;
 }
 
 void textarea::add_word(bn::string_view word) {
