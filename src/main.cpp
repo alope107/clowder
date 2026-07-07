@@ -38,7 +38,7 @@ int main()
 
     song my_song;
     // todo: add metronome start so they can get the beat
-    my_song.push_back(0b0111'1111'0001'0100);
+    my_song.push_back(0b0100'0101'0001'0100);
     my_song.push_back(0b0000'0000'0000'0000);
     my_song.push_back(0b0001'0001'0001'0101);
     my_song.push_back(0b0000'0000'0000'0000);

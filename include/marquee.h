@@ -1,6 +1,7 @@
 #pragma once
 
 #include <bn_deque.h>
+#include <bn_sprite_ptr.h>
 
 #include "word.h"
 #include "limits.h"
@@ -24,6 +25,7 @@ class marquee {
         void pop_word(bool success);
 
     private:
+        bn::sprite_ptr _target;
         textarea _textarea;
         bn::sprite_text_generator& _gen;
         int _text_count;

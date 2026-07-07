@@ -2,6 +2,10 @@
 
 #include <bn_log.h>
 
+#include "bn_sprite_items_target.h"
+
+//bn_sprite_manager
+
 marquee::marquee(bn::sprite_text_generator& gen, 
                 int text_count,
                 const bn::string_view text[],
@@ -10,6 +14,7 @@ marquee::marquee(bn::sprite_text_generator& gen,
                 bn::fixed text_speed,
                 int frames_per_beat,
                 song rhythm) :
+    _target(bn::sprite_items::target.create_sprite(cutoff-4, start_pos.y())),
     _textarea(gen, {-100 + 64, 0}, 100),
     _gen(gen),
     _text_count(text_count),
