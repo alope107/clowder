@@ -7,6 +7,7 @@ class game
 public:
     game(int bpm)
     {
+        score = 0;
         // init frame to 0
         current_frame = 0;
         game_bpm = bpm;
@@ -22,9 +23,12 @@ public:
         return current_frame;
     };
 
+    int getScore() { return score; }
+    void setScore(int x) { score = x; }
     int getFramesPerBeat() { return game_fpb; };
 
 private:
+    int score; // score
     int current_frame;
     int game_bpm; // beat per minute 
     int game_fps = 60; // frames per second
