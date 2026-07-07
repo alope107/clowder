@@ -17,6 +17,9 @@ public:
          bn::fixed speed);
     void update();
 
+    bn::fixed_point left();
+    bn::string_view text();
+
 private:
     bn::string<MAX_WORD_LEN> _text;
     bn::vector<bn::sprite_ptr, MAX_WORD_LEN> _sprs;

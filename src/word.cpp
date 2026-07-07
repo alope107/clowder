@@ -22,3 +22,11 @@ void word::update()
         spr.set_x(spr.x() + _speed);
     }
 }
+
+bn::fixed_point word::left() {
+    return _left;
+}
+
+bn::string_view word::text() {
+    return _text;
+}

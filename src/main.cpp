@@ -28,7 +28,7 @@
 int main()
 {
     // set bpm
-    game gameSettings(120);
+    game gameSettings(30);
 
     // make sound vector
     bn::vector<int, 4> beats_vec;
@@ -62,6 +62,7 @@ int main()
     marquee m = marquee(text_generator,
                         text,
                         {120, -30},
+                        -100,
                         gameSettings.getFramesPerBeat(),
                         -1
                         );
