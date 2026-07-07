@@ -19,6 +19,7 @@ class marquee {
                 int frames_per_spawn,
                 bn::fixed text_speed);
         void update();
+        void pop_word(bool success);
 
     private:
         textarea _textarea;

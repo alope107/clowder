@@ -30,13 +30,18 @@
 int main()
 {
     // set bpm
-    game gameSettings(120);
+    game gameSettings(80);
 
     song my_song;
+    // todo: add metronome start so they can get the beat
     my_song.push_back(0b0001'0001'0001'0101);
+    my_song.push_back(0b0000'0000'0000'0000);
     my_song.push_back(0b0001'0001'0001'0101);
+    my_song.push_back(0b0000'0000'0000'0000);
     my_song.push_back(0b0101'0101'0001'0101);
+    my_song.push_back(0b0000'0000'0000'0000);
     my_song.push_back(0b0101'0001'0001'0001);
+    my_song.push_back(0b0000'0000'0000'0000);
     beep sound(&gameSettings, my_song);
 
     bn::core::init();
@@ -70,14 +75,35 @@ int main()
         "We",
         "Gardena",
         "in",
-        "geardagum"
+        "geardagum", 
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
     };
 
     marquee m = marquee(text_generator,
                         (int)(sizeof(text) / sizeof(text[0])),
                         text,
                         {120, -30},
-                        -100,
+                        -120,
                         gameSettings.getFramesPerBeat(),
                         -1
                         );
@@ -85,17 +111,14 @@ int main()
 
     while (true)
     {
-        if (bn::keypad::a_pressed())
+        if (bn::keypad::a_pressed() || bn::keypad::b_pressed())
         {
-            bn::sound::play(bn::sound_items::clap_lo);
-            
+            int checkMeasure = sound.getMeasure() - 1;
+            int checkBeat = sound.getBeat();
+            if (play_beat(my_song[checkMeasure], checkBeat))
+                m.pop_word(true);            
         }
-        if (bn::keypad::b_pressed())
-        {
-            bn::backdrop::set_color(bn::color(0, 31, 0));
-            bn::sound::play(bn::sound_items::clap_hi);
-        }
-
+        
         sound.update(); 
         m.update();
         gameSettings.incrementFrame();

@@ -25,16 +25,18 @@ public:
         m_song = in_song; 
     }
 
+    int getMeasure() { return measure_counter; }
+    int getBeat() { return beat_counter; }
+    bn::vector<int, MAX_MEASURE_LEN> getHitFrames() { return hit_frames; }
+
 private:
     game *game_settings;
+    song m_song;
     int beat_counter;
     int measure_counter;
     int game_fpb;
-    song m_song;
-
-    int curr_play_frame = 0;
     int curr_beat_frame = 0;
-    bool beat_set = false;
+    bn::vector<int, MAX_MEASURE_LEN> hit_frames;
 
     // helper functions
     int beat(int currFrame); // returns frame number for the frame that play happened

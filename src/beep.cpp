@@ -11,24 +11,9 @@ void beep::update() {
 int beep::play() {
     measure curr_measure = m_song[measure_counter];
     if (play_beat(curr_measure, beat_counter) && game_settings->getCurrentFrame() == curr_beat_frame) {
-        BN_LOG("played at beat: ", beat_counter);
-        BN_LOG("played at frame: ", game_settings->getCurrentFrame());
         bn::sound::play(bn::sound_items::clap_hi); 
+        hit_frames.push_back(curr_beat_frame);
     }
-
-    // for (auto measures : m_song) {
-    //     //{x, y, z, a, b, c}
-
-
-
-    //     if ((beat_counter) == measures && game_settings->getCurrentFrame() == curr_beat_frame ) // second half is so it doesn't play for the entire time
-    //     {
-    //         BN_LOG("played at beat: ", beat_counter);
-    //         BN_LOG("played at frame: ", game_settings->getCurrentFrame());
-    //         bn::sound::play(bn::sound_items::clap_hi); 
-    //     }    
-    // }
-
     return 0;
 }
 
@@ -39,13 +24,15 @@ int beep::beat(int currFrame){
         {
             beat_counter = 0;
             measure_counter += 1;
+            for (auto elem : hit_frames)
+                BN_LOG(elem);
+            hit_frames.clear();
         }
         else 
         {
             beat_counter +=1;
         }
         curr_beat_frame = game_settings->getCurrentFrame();
-        BN_LOG(beat_counter);
 
         if (measure_counter == m_song.size() ) {
             measure_counter = 0;
