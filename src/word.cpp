@@ -3,7 +3,8 @@
 word::word(bn::sprite_text_generator &gen,
            bn::string<MAX_WORD_LEN> text,
            bn::fixed_point start_position,
-           bn::fixed speed) : _left(start_position),
+           bn::fixed speed) : _text(text),
+                              _left(start_position),
                               _speed(speed)
 {
     gen.generate(0, 0, text, _sprs);
