@@ -28,5 +28,5 @@ private:
     int current_frame;
     int game_bpm; // beat per minute 
     int game_fps = 60; // frames per second
-    int game_fpb; // frames per beat
+    int game_fpb; // frames per beat (if beat is 16th note)
 };

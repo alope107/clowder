@@ -4,35 +4,39 @@
 #include <bn_sound_item.h>
 #include <bn_unordered_map.h>
 #include "game.h"
+#include "limits.h"
+#include "measure.h"
+
 class beep
 {
 public:
     // constructor
-    beep(game *settings, bn::vector<int, 4> in_beats) {
+    beep(game *settings, song in_song) {
         beat_counter = 0;
+        measure_counter = 0;
         game_settings = settings;
         game_fpb = game_settings->getFramesPerBeat();
-        beats = in_beats;
+        m_song = in_song;
     }
 
     void update(); // call this to run the beep
 
-    int setBeats(bn::vector<int, 4> in_beats) { 
-        beats = in_beats; 
-        return 0;
+    void setBeats(song in_song) { 
+        m_song = in_song; 
     }
 
 private:
     game *game_settings;
     int beat_counter;
+    int measure_counter;
     int game_fpb;
-    bn::vector<int, 4> beats;
+    song m_song;
+
     int curr_play_frame = 0;
     int curr_beat_frame = 0;
     bool beat_set = false;
 
     // helper functions
     int beat(int currFrame); // returns frame number for the frame that play happened
-    int play(bn::unordered_map<int, int, 4> in_beats);
-    int play(bn::vector<int, 4> in_beats); 
+    int play(); 
 };

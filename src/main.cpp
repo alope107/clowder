@@ -14,9 +14,11 @@
 #include "bn_sound_items.h"
 #include <bn_vector.h>
 #include <bn_unordered_map.h>
+
 #include "beep.h"
 
 #include "game.h"
+#include "limits.h"
 
 #include <bn_string.h>
 
@@ -28,14 +30,30 @@
 int main()
 {
     // set bpm
-    game gameSettings(60);
+    game gameSettings(120);
 
     // make sound vector
-    bn::vector<int, 4> beats_vec;
-    beats_vec.push_back(1);
-    beats_vec.push_back(3);
+    bn::vector<int, MAX_MEASURE_LEN> beats_vec;
+    beats_vec.push_back(0);
+    beats_vec.push_back(2);
+    beats_vec.push_back(4);
+    beats_vec.push_back(8);
+    beats_vec.push_back(12);
+
+
+    //beats_vec.push_back(8);
+    //beats_vec.push_back(12);
+    //beats_vec.push_back(16);
+    
+    
     // init beep
-    beep sound(&gameSettings, beats_vec);
+
+    song my_song;
+    my_song.push_back(0b0001'0001'0001'0101);
+    my_song.push_back(0b0001'0001'0001'0101);
+    my_song.push_back(0b0101'0101'0001'0101);
+    my_song.push_back(0b0101'0001'0001'0001);
+    beep sound(&gameSettings, my_song);
 
     bn::core::init();
 
