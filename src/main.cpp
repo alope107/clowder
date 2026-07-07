@@ -29,8 +29,10 @@
 
 int main()
 {
+    bn::core::init();
+
     // set bpm
-    game gameSettings(120);
+    game gameSettings(10);
 
     // make sound vector
     bn::vector<int, MAX_MEASURE_LEN> beats_vec;
@@ -55,7 +57,7 @@ int main()
     my_song.push_back(0b0101'0001'0001'0001);
     beep sound(&gameSettings, my_song);
 
-    bn::core::init();
+
 
     bn::backdrop::set_color(bn::color(31, 0, 0));
 
@@ -94,8 +96,9 @@ int main()
                         text,
                         {120, -30},
                         -100,
+                        -1,
                         gameSettings.getFramesPerBeat(),
-                        -1
+                        my_song
                         );
 
 

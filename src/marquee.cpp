@@ -1,12 +1,15 @@
 #include "marquee.h"
 
-marquee::marquee(bn::sprite_text_generator& gen,
-                 int text_count,
-                 const bn::string_view text[],
-                 bn::fixed_point start_pos,
-                 bn::fixed cutoff,
-                 int frames_per_spawn,
-                bn::fixed text_speed) :
+#include <bn_log.h>
+
+marquee::marquee(bn::sprite_text_generator& gen, 
+                int text_count,
+                const bn::string_view text[],
+                bn::fixed_point start_pos,
+                bn::fixed cutoff,
+                bn::fixed text_speed,
+                int frames_per_beat,
+                song rhythm) :
     _textarea(gen, {-100, 0}, 100),
     _gen(gen),
     _text_count(text_count),
@@ -15,8 +18,9 @@ marquee::marquee(bn::sprite_text_generator& gen,
     _text_idx(0),
     _text_speed(text_speed),
     _cutoff(cutoff),
-    _frames_per_spawn(frames_per_spawn),
-    _frames_to_spawn(0)
+    _frames_per_beat(frames_per_beat),
+    _rhythm(rhythm),
+    _frame(0)
      {
 }
 
@@ -33,13 +37,27 @@ void marquee::update() {
             _words.pop_front();
         }
     }
-    
-    if(_frames_to_spawn-- > 0) return;
 
-    _frames_to_spawn = _frames_per_spawn;
+    BN_LOG("fpb ", _frames_per_beat);
 
-    if(_text_idx < _text_count) {
+    int frames_per_sixteen = _frames_per_beat / 4;
+    int measure_length = frames_per_sixteen * 16;
+
+     BN_LOG("frame ", _frame);
+     BN_LOG("fpb ", _frames_per_beat);
+     BN_LOG("fp16 ", frames_per_sixteen);
+
+    int measure_idx = (_frame / measure_length) % _rhythm.size();
+    int sixteen_idx = (_frame / frames_per_sixteen) % 16;
+
+    BN_LOG("measureidx ", measure_idx);
+     BN_LOG("sixteen_idx ", sixteen_idx);
+
+
+
+    if(_text_idx < _text_count && play_beat(_rhythm[measure_idx], sixteen_idx)) {
         _words.emplace_back(_gen, _text[_text_idx++], _start_pos, _text_speed);
     }
+    _frame++;
 }
 

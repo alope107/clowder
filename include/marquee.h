@@ -5,6 +5,7 @@
 #include "word.h"
 #include "limits.h"
 #include "textarea.h"
+#include "measure.h"
 
 static constexpr int MAX_MARQUEE_WORDS = 32;
 
@@ -16,8 +17,9 @@ class marquee {
                 const bn::string_view text[],
                 bn::fixed_point start_pos,
                 bn::fixed cutoff,
-                int frames_per_spawn,
-                bn::fixed text_speed);
+                bn::fixed text_speed,
+                int frames_per_beat,
+                song rhythm);
         void update();
 
     private:
@@ -30,6 +32,7 @@ class marquee {
         bn::deque<word, MAX_MARQUEE_WORDS> _words;
         bn::fixed _text_speed;
         bn::fixed _cutoff;
-        int _frames_per_spawn;
-        int _frames_to_spawn;
+        int _frames_per_beat;
+        song _rhythm;
+        int _frame;
 };
