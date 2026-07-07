@@ -10,7 +10,7 @@ marquee::marquee(bn::sprite_text_generator& gen,
                 bn::fixed text_speed,
                 int frames_per_beat,
                 song rhythm) :
-    _textarea(gen, {-100, 0}, 100),
+    _textarea(gen, {-100 + 64, 0}, 100),
     _gen(gen),
     _text_count(text_count),
     _text(text),
