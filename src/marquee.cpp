@@ -38,24 +38,24 @@ void marquee::update() {
         }
     }
 
-    BN_LOG("fpb ", _frames_per_beat);
+    // BN_LOG("rsize ", _rhythm.size());
+
+    // BN_LOG("fpb ", _frames_per_beat);
 
     int frames_per_sixteen = _frames_per_beat / 4;
     int measure_length = frames_per_sixteen * 16;
 
-     BN_LOG("frame ", _frame);
-     BN_LOG("fpb ", _frames_per_beat);
-     BN_LOG("fp16 ", frames_per_sixteen);
+    //  BN_LOG("frame ", _frame);
+    //  BN_LOG("fpb ", _frames_per_beat);
+    //  BN_LOG("fp16 ", frames_per_sixteen);
 
     int measure_idx = (_frame / measure_length) % _rhythm.size();
     int sixteen_idx = (_frame / frames_per_sixteen) % 16;
 
-    BN_LOG("measureidx ", measure_idx);
-     BN_LOG("sixteen_idx ", sixteen_idx);
+    // BN_LOG("measureidx ", measure_idx);
+    // BN_LOG("sixteen_idx ", sixteen_idx);
 
-
-
-    if(_text_idx < _text_count && play_beat(_rhythm[measure_idx], sixteen_idx)) {
+    if(_text_idx < _text_count && _frame % frames_per_sixteen == 0 && play_beat(_rhythm[measure_idx], sixteen_idx)) {
         _words.emplace_back(_gen, _text[_text_idx++], _start_pos, _text_speed);
     }
     _frame++;

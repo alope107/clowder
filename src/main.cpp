@@ -34,7 +34,7 @@ int main()
     bn::core::init();
 
     // set bpm
-    game gameSettings(10);
+    game gameSettings(60);
 
     // make sound vector
     bn::vector<int, MAX_MEASURE_LEN> beats_vec;
@@ -53,8 +53,8 @@ int main()
     // init beep
 
     song my_song;
-    my_song.push_back(0b0001'0001'0001'0101);
-    my_song.push_back(0b0001'0001'0001'0101);
+    my_song.push_back(0b1100'0000'0101'0000);
+    my_song.push_back(0b0001'0001'1100'0001);
     my_song.push_back(0b0101'0101'0001'0101);
     my_song.push_back(0b0101'0001'0001'0001);
     beep sound(&gameSettings, my_song);
