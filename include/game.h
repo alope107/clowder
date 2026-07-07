@@ -10,7 +10,7 @@ public:
         // init frame to 0
         current_frame = 0;
         game_bpm = bpm;
-        game_fpb = game_fps / (game_bpm / 60);
+        game_fpb = (game_fps * 60) / game_bpm;
     }
 
     int getCurrentFrame() { return current_frame; };
