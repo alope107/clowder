@@ -43,7 +43,7 @@ int main()
 
     bn::sprite_font font = common::fixed_8x16_sprite_font;
     bn::sprite_text_generator text_generator(font);
-    text_generator.set_alignment(bn::sprite_text_generator::alignment_type::CENTER);
+    text_generator.set_alignment(bn::sprite_text_generator::alignment_type::LEFT);
 
 
     bn::vector<bn::string<MAX_WORD_LEN>, MAX_MARQUEE_WORDS> text = {};
@@ -62,7 +62,8 @@ int main()
     marquee m = marquee(text_generator,
                         text,
                         {120, -30},
-                        gameSettings.getFramesPerBeat()
+                        gameSettings.getFramesPerBeat(),
+                        -1
                         );
 
 

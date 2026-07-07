@@ -8,11 +8,18 @@
 
 #include "limits.h"
 
-class word {
-    public:
-        word(bn::sprite_text_generator& gen, bn::string<MAX_WORD_LEN> text, bn::fixed_point _start_position);
-        void update();
-    private:
-        bn::vector<bn::sprite_ptr, MAX_WORD_LEN> _sprs;
-        bn::fixed_point _center;
+class word
+{
+public:
+    word(bn::sprite_text_generator &gen,
+         bn::string<MAX_WORD_LEN> text,
+         bn::fixed_point start_position,
+         bn::fixed speed);
+    void update();
+
+private:
+    bn::string<MAX_WORD_LEN> _text;
+    bn::vector<bn::sprite_ptr, MAX_WORD_LEN> _sprs;
+    bn::fixed_point _left;
+    bn::fixed _speed;
 };
