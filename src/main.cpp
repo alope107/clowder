@@ -107,7 +107,7 @@ int main()
                         (int)(sizeof(text) / sizeof(text[0])),
                         text,
                         {120, -30},
-                        -120,
+                        -100,
                         gameSettings.getFramesPerBeat(),
                         -1
                         );
