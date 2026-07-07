@@ -13,6 +13,6 @@ using song = bn::vector<measure, MAX_SONG_LEN>;
 // return true if beat should be played in current measure
 // return false if beat should not be played in current measure 
 inline bool play_beat(measure current_measure, int beat) {
-    unsigned short bitmask = 1 << beat;
+    unsigned short bitmask = 1 << (15-beat);
     return (current_measure & bitmask) > 0;
 }

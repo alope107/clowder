@@ -21,6 +21,7 @@ class marquee {
                 int frames_per_beat,
                 song rhythm);
         void update();
+        void pop_word(bool success);
 
     private:
         textarea _textarea;

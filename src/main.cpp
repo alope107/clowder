@@ -34,29 +34,18 @@ int main()
     bn::core::init();
 
     // set bpm
-    game gameSettings(60);
-
-    // make sound vector
-    bn::vector<int, MAX_MEASURE_LEN> beats_vec;
-    beats_vec.push_back(0);
-    beats_vec.push_back(2);
-    beats_vec.push_back(4);
-    beats_vec.push_back(8);
-    beats_vec.push_back(12);
-
-
-    //beats_vec.push_back(8);
-    //beats_vec.push_back(12);
-    //beats_vec.push_back(16);
-    
-    
-    // init beep
+    game gameSettings(80);
 
     song my_song;
-    my_song.push_back(0b1100'0000'0101'0000);
-    my_song.push_back(0b0001'0001'1100'0001);
+    // todo: add metronome start so they can get the beat
+    my_song.push_back(0b0111'1111'0001'0100);
+    my_song.push_back(0b0000'0000'0000'0000);
+    my_song.push_back(0b0001'0001'0001'0101);
+    my_song.push_back(0b0000'0000'0000'0000);
     my_song.push_back(0b0101'0101'0001'0101);
+    my_song.push_back(0b0000'0000'0000'0000);
     my_song.push_back(0b0101'0001'0001'0001);
+    my_song.push_back(0b0000'0000'0000'0000);
     beep sound(&gameSettings, my_song);
 
 
@@ -92,13 +81,34 @@ int main()
         "We",
         "Gardena",
         "in",
-        "geardagum"
+        "geardagum", 
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
+        "test",
     };
 
     marquee m = marquee(text_generator,
                         (int)(sizeof(text) / sizeof(text[0])),
                         text,
-                        {120, -60},
+                        {120, -30},
                         -100,
                         -1,
                         gameSettings.getFramesPerBeat(),
@@ -108,15 +118,12 @@ int main()
 
     while (true)
     {
-        if (bn::keypad::a_pressed())
+        if (bn::keypad::a_pressed() || bn::keypad::b_pressed())
         {
-            bn::backdrop::set_color(bn::color(0, 0, 30));
-            bn::sound::play(bn::sound_items::clap_lo);
-        }
-        if (bn::keypad::b_pressed())
-        {
-            bn::backdrop::set_color(bn::color(0, 31, 0));
-            bn::sound::play(bn::sound_items::clap_hi);
+            int checkMeasure = sound.getMeasure() - 1;
+            int checkBeat = sound.getBeat();
+            if (play_beat(my_song[checkMeasure], checkBeat))
+                m.pop_word(true);            
         }
 
         kitty_bard.update();
