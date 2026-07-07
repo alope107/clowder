@@ -122,17 +122,8 @@ int main()
             if (play_beat(my_song[checkMeasure], checkBeat))
                 m.pop_word(true);            
         }
-<<<<<<< HEAD
-        
-=======
-        if (bn::keypad::b_pressed())
-        {
-            bn::backdrop::set_color(bn::color(0, 31, 0));
-            bn::sound::play(bn::sound_items::clap_hi);
-        }
 
         kitty_bard.update();
->>>>>>> 90f39030c74cfeb47a22d65ffa2c50598a8e794f
         sound.update(); 
         m.update();
         gameSettings.incrementFrame();
