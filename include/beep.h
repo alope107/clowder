@@ -9,9 +9,9 @@ class beep
 public:
     // constructor
     beep(game *settings, bn::vector<int, 4> in_beats) {
-        beat_counter = 1;
+        beat_counter = 0;
         game_settings = settings;
-        game_bpm = game_settings->getFramesPerBeat();
+        game_fpb = game_settings->getFramesPerBeat();
         beats = in_beats;
     }
 
@@ -25,8 +25,11 @@ public:
 private:
     game *game_settings;
     int beat_counter;
-    int game_bpm;
+    int game_fpb;
     bn::vector<int, 4> beats;
+    int curr_play_frame = 0;
+    int curr_beat_frame = 0;
+    bool beat_set = false;
 
     // helper functions
     int beat(int currFrame); // returns frame number for the frame that play happened

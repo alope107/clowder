@@ -28,7 +28,7 @@
 int main()
 {
     // set bpm
-    game gameSettings(120);
+    game gameSettings(60);
 
     // make sound vector
     bn::vector<int, 4> beats_vec;
