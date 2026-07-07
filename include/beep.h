@@ -11,7 +11,7 @@ public:
     beep(game *settings, bn::vector<int, 4> in_beats) {
         beat_counter = 1;
         game_settings = settings;
-        game_bpm = game_settings->getGameBPM();
+        game_bpm = game_settings->getFramesPerBeat();
         beats = in_beats;
     }
 

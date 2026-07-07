@@ -10,7 +10,7 @@ public:
         // init frame to 0
         current_frame = 0;
         game_bpm = bpm;
-        song_bps = game_fps / (game_bpm / 60);
+        game_fpb = game_fps / (game_bpm / 60);
     }
 
     int getCurrentFrame() { return current_frame; };
@@ -22,11 +22,11 @@ public:
         return current_frame;
     };
 
-    int getGameBPM() { return song_bps; };
+    int getFramesPerBeat() { return game_fpb; };
 
 private:
     int current_frame;
-    int game_bpm;
-    int game_fps = 60;
-    int song_bps;
+    int game_bpm; // beat per minute 
+    int game_fps = 60; // frames per second
+    int game_fpb; // frames per beat
 };

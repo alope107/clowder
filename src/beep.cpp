@@ -22,7 +22,11 @@ int beep::play(bn::vector<int, 4> in_beats) {
     for (auto beat : in_beats) {
         BN_LOG(beat_counter);
         if (beat_counter == beat) 
+        {
+            // find optimal frame to play
             bn::sound::play(bn::sound_items::clap_hi);  
+        }
+            
     }
 
     return 0;
