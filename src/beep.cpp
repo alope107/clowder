@@ -37,6 +37,7 @@ int beep::beat(int currFrame){
 
         if (measure_counter == m_song.size() ) {
             measure_counter = 0;
+            game_settings->incrementLoopCount();
         }
     }
     return 0;

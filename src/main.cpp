@@ -14,6 +14,7 @@
 #include "bn_sound_items.h"
 #include <bn_vector.h>
 #include <bn_unordered_map.h>
+#include <bn_math.h>
 
 #include "beep.h"
 
@@ -33,19 +34,21 @@
 int main()
 {
     bn::core::init();
+    bn::sound::set_master_volume(1);
 
     // set bpm
     game gameSettings(60);
+    gameSettings.setSuccessThreshold(20); // scaled with difficulty?
 
     song my_song;
     // todo: add metronome start so they can get the beat
-    my_song.push_back(0b0111'1111'0001'0100);
+    my_song.push_back(0b0001'0001'0001'0001);
     my_song.push_back(0b0000'0000'0000'0000);
-    my_song.push_back(0b0001'0001'0001'0101);
+    my_song.push_back(0b1000'1000'1010'1000);
     my_song.push_back(0b0000'0000'0000'0000);
-    my_song.push_back(0b0101'0101'0001'0101);
+    my_song.push_back(0b1000'1000'1111'1010);
     my_song.push_back(0b0000'0000'0000'0000);
-    my_song.push_back(0b0101'0001'0001'0001);
+    my_song.push_back(0b0101'0111'0001'1101);
     my_song.push_back(0b0000'0000'0000'0000);
     beep sound(&gameSettings, my_song);
 
@@ -111,7 +114,7 @@ int main()
                         (int)(sizeof(text) / sizeof(text[0])),
                         text,
                         {120, -30},
-                        -100,
+                        -120,
                         -1,
                         gameSettings.getFramesPerBeat(),
                         my_song
@@ -120,22 +123,41 @@ int main()
     int fpm = gameSettings.getFramesPerBeat() * 4;
 
     while (true)
-    {
+    {   
+        int thresh = gameSettings.getSuccessThreshold();
         // If within a window, and butotn press then check if butotn already pressed don't check input
         if ((bn::keypad::a_pressed() || bn::keypad::b_pressed()) && sound.getMeasure() > 0)
         {
-            gameSettings.setScore(gameSettings.getScore()+1);
+            //gameSettings.setScore(gameSettings.getScore()+1);
             int checkMeasure = sound.getMeasure() - 1;
             int checkBeat = sound.getBeat();
-            if (play_beat(my_song[checkMeasure], checkBeat))
-            {
-                //m.pop_word(true); 
-                int pressFrame = gameSettings.getCurrentFrame();
-                int targetFrame = ((checkMeasure + 1)* fpm) + (checkBeat * fpm / 16);
-                BN_LOG("Pressed at frame: ", pressFrame);
-                BN_LOG("Ideal Frame: ", targetFrame); // this needs to be offset by when the song actually actually starts
-                BN_LOG("success metric: ", pressFrame - targetFrame);
-            }           
+            int pressFrame = gameSettings.getCurrentFrame();
+            int targetFrame = (((checkMeasure + 1)* fpm) + (gameSettings.getLoopCount() * (my_song.size() * fpm))) + (checkBeat * fpm / 16);
+            BN_LOG("Pressed at frame: ", pressFrame);
+            BN_LOG("Ideal Frame: ", targetFrame); // this needs to be offset by when the song actually actually starts
+            BN_LOG("success metric: ", bn::abs(pressFrame - targetFrame));
+            if (bn::abs(pressFrame - targetFrame) < thresh)
+                {
+                    m.pop_word(true); 
+                    gameSettings.setScore(gameSettings.getScore() + 1);
+                } else 
+                    gameSettings.setScore(gameSettings.getScore() - 1);
+            // if (play_beat(my_song[checkMeasure], checkBeat))
+            // {
+               
+            //     int pressFrame = gameSettings.getCurrentFrame();
+            //     int targetFrame = ((checkMeasure + 1)* fpm) + (checkBeat * fpm / 16);
+            //     BN_LOG("Pressed at frame: ", pressFrame);
+            //     BN_LOG("Ideal Frame: ", targetFrame); // this needs to be offset by when the song actually actually starts
+            //     BN_LOG("success metric: ", bn::abs(pressFrame - targetFrame));
+            //     if (bn::abs(pressFrame - targetFrame) < thresh)
+            //     {
+            //         m.pop_word(true); 
+            //         gameSettings.setScore(gameSettings.getScore() + 1);
+            //     } else 
+            //         gameSettings.setScore(gameSettings.getScore() - 1);
+            // } else
+            //     gameSettings.setScore(gameSettings.getScore() - 5);       
         }
 
         kitty_bard.update();
