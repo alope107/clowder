@@ -73,7 +73,7 @@ int main()
     marquee m = marquee(text_generator,
                         (int)(sizeof(text) / sizeof(text[0])),
                         text,
-                        {120, -60},
+                        {120, -30},
                         thresh,
                         -120,
                         -1,
@@ -101,24 +101,9 @@ int main()
                 {
                     m.pop_word(true); 
                     gameSettings.setScore(gameSettings.getScore() + 1);
+                    bn::sound::play(bn::sound_items::cat);
                 } else 
-                    gameSettings.setScore(gameSettings.getScore() - 1);
-            // if (play_beat(my_song[checkMeasure], checkBeat))
-            // {
-               
-            //     int pressFrame = gameSettings.getCurrentFrame();
-            //     int targetFrame = ((checkMeasure + 1)* fpm) + (checkBeat * fpm / 16);
-            //     BN_LOG("Pressed at frame: ", pressFrame);
-            //     BN_LOG("Ideal Frame: ", targetFrame); // this needs to be offset by when the song actually actually starts
-            //     BN_LOG("success metric: ", bn::abs(pressFrame - targetFrame));
-            //     if (bn::abs(pressFrame - targetFrame) < thresh)
-            //     {
-            //         m.pop_word(true); 
-            //         gameSettings.setScore(gameSettings.getScore() + 1);
-            //     } else 
-            //         gameSettings.setScore(gameSettings.getScore() - 1);
-            // } else
-            //     gameSettings.setScore(gameSettings.getScore() - 5);       
+                    gameSettings.setScore(gameSettings.getScore() - 1); 
         }
 
         kitty_bard.update();
