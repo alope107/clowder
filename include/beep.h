@@ -27,6 +27,7 @@ public:
 
     int getMeasure() { return measure_counter; }
     int getBeat() { return beat_counter; }
+    int getCurrBeatFrame() { return curr_beat_frame; }
     bn::vector<int, MAX_MEASURE_LEN> getHitFrames() { return hit_frames; }
 
 private:

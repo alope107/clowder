@@ -30,13 +30,15 @@ marquee::marquee(bn::sprite_text_generator& gen,
 }
 
 void marquee::pop_word(bool success) {
-    word& front = _words[0];
-    if (!success) {
-        front = word(_gen, "*****", _start_pos, _text_speed);
-    }
-    if(!_textarea.fits(front.text())) _textarea.clear();
-            _textarea.add_word(front.text());
-            _words.pop_front();
+    if (_words.size() != 0) {
+        word& front = _words[0];
+        if (!success) {
+            front = word(_gen, "*****", _start_pos, _text_speed);
+        }
+        if(!_textarea.fits(front.text())) _textarea.clear();
+                _textarea.add_word(front.text());
+                _words.pop_front();
+    } else return;
 }
 
 void marquee::update() {
