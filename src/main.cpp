@@ -24,6 +24,7 @@
 
 #include "bard.h"
 #include "word.h"
+#include "score.h"
 #include "marquee.h"
 
 #include "common_variable_8x16_sprite_font.h"
@@ -57,6 +58,7 @@ int main()
     text_generator.set_alignment(bn::sprite_text_generator::alignment_type::LEFT);
 
     bard kitty_bard = bard({-120 + 32, 0});
+    score score_keeper = score(&gameSettings, {-60, 60});
 
     //Hwæt. We Gardena in geardagum,
     //þeodcyninga, þrym gefrunon
@@ -122,6 +124,7 @@ int main()
         // If within a window, and butotn press then check if butotn already pressed don't check input
         if ((bn::keypad::a_pressed() || bn::keypad::b_pressed()) && sound.getMeasure() > 0)
         {
+            gameSettings.setScore(gameSettings.getScore()+1);
             int checkMeasure = sound.getMeasure() - 1;
             int checkBeat = sound.getBeat();
             if (play_beat(my_song[checkMeasure], checkBeat))
@@ -136,6 +139,7 @@ int main()
         }
 
         kitty_bard.update();
+        score_keeper.update();
         sound.update(); 
         m.update();
         gameSettings.incrementFrame();
