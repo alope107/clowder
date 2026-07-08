@@ -34,7 +34,7 @@ int main()
     bn::core::init();
 
     // set bpm
-    game gameSettings(80);
+    game gameSettings(60);
 
     song my_song;
     // todo: add metronome start so they can get the beat
@@ -115,15 +115,24 @@ int main()
                         my_song
                         );
 
+    int fpm = gameSettings.getFramesPerBeat() * 4;
 
     while (true)
     {
-        if (bn::keypad::a_pressed() || bn::keypad::b_pressed())
+        // If within a window, and butotn press then check if butotn already pressed don't check input
+        if ((bn::keypad::a_pressed() || bn::keypad::b_pressed()) && sound.getMeasure() > 0)
         {
             int checkMeasure = sound.getMeasure() - 1;
             int checkBeat = sound.getBeat();
             if (play_beat(my_song[checkMeasure], checkBeat))
-                m.pop_word(true);            
+            {
+                //m.pop_word(true); 
+                int pressFrame = gameSettings.getCurrentFrame();
+                int targetFrame = ((checkMeasure + 1)* fpm) + (checkBeat * fpm / 16);
+                BN_LOG("Pressed at frame: ", pressFrame);
+                BN_LOG("Ideal Frame: ", targetFrame); // this needs to be offset by when the song actually actually starts
+                BN_LOG("success metric: ", pressFrame - targetFrame);
+            }           
         }
 
         kitty_bard.update();
