@@ -16,6 +16,7 @@ class marquee {
                 int text_count,
                 const bn::string_view text[],
                 bn::fixed_point start_pos,
+                int frames_thresh,
                 bn::fixed cutoff,
                 bn::fixed text_speed,
                 int frames_per_beat,

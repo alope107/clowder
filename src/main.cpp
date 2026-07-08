@@ -110,10 +110,13 @@ int main()
         "test",
     };
 
+    int thresh = gameSettings.getSuccessThreshold();
+
     marquee m = marquee(text_generator,
                         (int)(sizeof(text) / sizeof(text[0])),
                         text,
                         {120, -30},
+                        thresh,
                         -120,
                         -1,
                         gameSettings.getFramesPerBeat(),
@@ -124,7 +127,7 @@ int main()
 
     while (true)
     {   
-        int thresh = gameSettings.getSuccessThreshold();
+        
         // If within a window, and butotn press then check if butotn already pressed don't check input
         if ((bn::keypad::a_pressed() || bn::keypad::b_pressed()) && sound.getMeasure() > 0)
         {

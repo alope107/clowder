@@ -2,10 +2,19 @@
 
 #include <bn_log.h>
 
+static constexpr int FAKE_TOLERANCE = 5;
+
+bn::fixed calc_text_speed(bn::fixed x_start, bn::fixed x_cutoff, int frames_per_beat) {
+    int frames_per_measure = frames_per_beat * 4;
+    bn::fixed distance = x_start - x_cutoff;
+    return -distance / frames_per_measure;
+}
+
 marquee::marquee(bn::sprite_text_generator& gen, 
                 int text_count,
                 const bn::string_view text[],
                 bn::fixed_point start_pos,
+                int frames_thresh,
                 bn::fixed cutoff,
                 bn::fixed text_speed,
                 int frames_per_beat,
@@ -16,13 +25,15 @@ marquee::marquee(bn::sprite_text_generator& gen,
     _text(text),
     _start_pos(start_pos),
     _text_idx(0),
-    _text_speed(text_speed),
-    _cutoff(cutoff),
+    _text_speed(calc_text_speed(_start_pos.x(), cutoff, frames_per_beat)),
+    _cutoff(cutoff + (_text_speed*frames_thresh)),
     _frames_per_beat(frames_per_beat),
     _rhythm(rhythm),
     _frame(0)
      {
 }
+
+
 
 void marquee::pop_word(bool success) {
     if (_words.size() != 0) {
