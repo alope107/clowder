@@ -22,7 +22,7 @@ with open(sys.argv[1]) as f:
         }
     ))
     trans = trans.replace("\n", " ")
-    trans = re.sub(r"(\S+) ", r'"\1", ', text)
+    trans = re.sub(r"(\S+) ", r'"\1", ', trans)
 
 with open(sys.argv[2], 'w') as f:
     f.write(trans)
