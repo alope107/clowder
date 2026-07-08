@@ -1,6 +1,7 @@
 #include "marquee.h"
 
 #include <bn_log.h>
+#include <bn_math.h>
 
 static constexpr int FAKE_TOLERANCE = 5;
 
@@ -19,7 +20,7 @@ marquee::marquee(bn::sprite_text_generator& gen,
                 bn::fixed text_speed,
                 int frames_per_beat,
                 song rhythm) :
-    _textarea(gen, {-100 + 64, 0}, 100),
+    _textarea(gen, {-100 + 64, -30}, 100),
     _gen(gen),
     _text_count(text_count),
     _text(text),
@@ -36,15 +37,13 @@ marquee::marquee(bn::sprite_text_generator& gen,
 
 
 void marquee::pop_word(bool success) {
-    if (_words.size() != 0) {
-        word& front = _words[0];
-        if (!success) {
-            front = word(_gen, "*****", _start_pos, _text_speed);
-        }
-        if(!_textarea.fits(front.text())) _textarea.clear();
-                _textarea.add_word(front.text());
-                _words.pop_front();
-    } else return;
+    word& front = _words[0];
+    if (!success) {
+        front = word(_gen, "*****", _start_pos, _text_speed);
+    }
+    if(!_textarea.fits(front.text())) _textarea.clear();
+            _textarea.add_word(front.text());
+            _words.pop_front();
 }
 
 void marquee::update() {
@@ -77,7 +76,16 @@ void marquee::update() {
     // BN_LOG("sixteen_idx ", sixteen_idx);
 
     if(_text_idx < _text_count && _frame % frames_per_sixteen == 0 && play_beat(_rhythm[measure_idx], sixteen_idx)) {
-        _words.emplace_back(_gen, _text[_text_idx++], _start_pos, _text_speed);
+        auto pos = bn::fixed_point(_start_pos);
+        auto mod = _text_idx % 3;
+        if (mod == 0) {
+            pos.set_y(_start_pos.y() + 10);
+        } else if (mod == 1) {
+        } else {
+            pos.set_y(_start_pos.y() - 10);
+        }
+        
+        _words.emplace_back(_gen, _text[_text_idx++], pos, _text_speed);
     }
     _frame++;
 }
