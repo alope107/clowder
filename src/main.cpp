@@ -73,7 +73,7 @@ int main()
     marquee m = marquee(text_generator,
                         (int)(sizeof(text) / sizeof(text[0])),
                         text,
-                        {120, -30},
+                        {120, -60},
                         thresh,
                         -120,
                         -1,
